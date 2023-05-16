@@ -41,3 +41,4 @@ with the data of the node object.
 16/05/2023
  - It hath begun
  - Started working out the plan, how to approach this problem and what features can we use to solve it.
+ - Created stub files for the Tree and Node classes.
