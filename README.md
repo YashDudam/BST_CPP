@@ -4,7 +4,7 @@ Join me as I learn C++ and apply some object-oriented principles :).
 
 This is an implementation of a binary search tree using C++.
 
-What do I want to achieve?
+## What do I want to achieve?
 
 The goal is to learn and practise solving problems with C++ and utilise the object-oriented programming
 features provided. I've chosen an AVL binary search tree data structure to implement in C++ using
@@ -13,7 +13,7 @@ that gives me some exposure to how memory works in C++ and it makes sense why cl
 implement a binary search tree. Hopefully by the end of this mini-project I'll have a working understanding
 of C++ in general, as well as the industry practises surrounding solving problems in an object-oriented manner.
 
-How am I going to use object-oriented principles?
+## How am I going to use object-oriented principles?
 
 I'll need a tree class to hold the information, left and right nodes, and height. Then define methods
 to interact with the BST. That covers encapsulation and abstraction, but how would I apply polymorphism
@@ -31,13 +31,13 @@ but it doesn't make sense for a parent class to access the members of a child cl
 is to create a tree class that has a pointer to a node object and use accessor and mutator functions to interact
 with the data of the node object.
 
-What else can I learn?
+## What else can I learn?
 
  - How do I use the catch testing framework?
  - How are namespaces used?
  - What are STL containers?
 
-Progress Log:
+## Progress Log:
 16/05/2023
  - It hath begun
  - Started working out the plan, how to approach this problem and what features can we use to solve it.
