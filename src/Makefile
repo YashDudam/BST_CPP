@@ -5,12 +5,11 @@ CFLAGS = -Wall -Werror -fsanitize=address,leak,undefined
 .PHONY: all
 all: main
 
-main: main.o Tree.o Node.o
-	$(CXX) $(CFLAGS) -o main main.o Tree.o Node.o
+main: main.o Tree.o
+	$(CXX) $(CFLAGS) -o main main.o Tree.o
 
 main.o: main.cpp
 Tree.o: Tree.cpp Tree.hpp
-Node.o: Node.cpp Node.cpp
 
 .PHONY: clean
 clean:

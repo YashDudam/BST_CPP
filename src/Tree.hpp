@@ -1,12 +1,17 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 
-#include "Node.hpp"
+typedef struct node *Node;
 
 class Tree {
 private:
-    Node *root_;
+    struct node {
+        int key;
+        Node left;
+        Node right;
+    };
 
+    Node root;
 public:
     Tree();
     Tree(int key);
