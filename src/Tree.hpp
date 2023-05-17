@@ -1,17 +1,18 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 
-typedef struct node *Node;
-
 class Tree {
 private:
     struct node {
-        int key;
-        Node left;
-        Node right;
+        int key_;
+        node *left_;
+        node *right_;
+        int height_;
+
+        node(int key);
     };
 
-    Node root;
+    node *root_;
 public:
     Tree();
     Tree(int key);
