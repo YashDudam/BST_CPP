@@ -23,13 +23,18 @@ Polymorphism could be used to make a binary search tree with multiple types, usi
 that just means writing the same function with different types. Maybe we can use (void *)? but that loses 
 all type safety. Maybe there is a better C++ equivelent to (void *)? Further investigation is required.
 
-How will the BST handle initialising an empty tree? This is easy in C, using a tree struct that holds the 
-root of the BST and optionally some additional information like size. The root node would house the information, 
-left and right pointers. How would something similar be implemented using classes in C++? Maybe a tree class that 
-holds a pointer to a node object, but then how would I access the node's members? Maybe inheritance could help 
-but it doesn't make sense for a parent class to access the members of a child class. I think the best thing to do
-is to create a tree class that has a pointer to a node object and use accessor and mutator functions to interact
-with the data of the node object.
+## How will the BST handle initialising an empty tree?
+
+This is easy in C, using a tree struct that holds the root of the BST and optionally some additional information 
+like size. The root node would house the information, left and right pointers. How would something similar be 
+implemented using classes in C++? Maybe a tree class that holds a pointer to a node object, but then how would I
+access the node's members? Maybe inheritance could help but it doesn't make sense for a parent class to access the
+members of a child class. I think the best thing to do is to create a tree class that has a pointer to a node object 
+and use accessor and mutator functions to interact with the data of the node object.
+
+UPDATE: Using a Tree class that holds a struct node as a private member seems to be the best way to go about this.
+This will have the effect of encapsulating the node information, while allowing my tree methods to access the 
+node. Why complicate things you don't have to?
 
 ## What else can I learn?
 
@@ -42,3 +47,9 @@ with the data of the node object.
  - It hath begun
  - Started working out the plan, how to approach this problem and what features can we use to solve it.
  - Created stub files for the Tree and Node classes.
+
+17/05/2023
+ - Created a Makefile to manage our dependencies. This isn't really needed since we only have one dependancy, but 
+   it'll speed up compilation and it is a good automation that'll prove useful for larger projects in the future.
+ - Deleted the Node.cpp and Node.hpp files since we are no longer using a node class, but instead a struct node
+ - Designed the tree class. Added the necessary private members and public methods.
