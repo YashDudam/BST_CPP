@@ -2,7 +2,17 @@
 #define NODE_HPP
 
 class Node {
-    // TODO
+private:
+    int key;
+    Node *left;
+    Node *right;
+    int height;
+
+public:
+    int key();
+    int height();
+    Node *left();
+    Node *right();
 };
 
 #endif

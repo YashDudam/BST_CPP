@@ -8,7 +8,7 @@ all: main
 main: main.o Tree.o Node.o
 	$(CXX) $(CFLAGS) -o main main.o Tree.o Node.o
 
-main.o: main.cpp Tree.hpp Node.hpp
+main.o: main.cpp
 Tree.o: Tree.cpp Tree.hpp
 Node.o: Node.cpp Node.cpp
 
