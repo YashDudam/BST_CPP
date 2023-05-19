@@ -11,8 +11,13 @@ private:
 
         node(int key);
     };
-
     node *root_;
+
+    bool do_search(node *n, int key);
+    node *do_insert(node *n, int key, bool &status);
+    int max(int a, int b);
+    void update_height(node *n);
+    int balance(node *n);
 public:
     Tree();
     Tree(int key);
