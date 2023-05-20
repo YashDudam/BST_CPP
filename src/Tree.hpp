@@ -15,7 +15,7 @@ private:
     };
     node *root_;
 
-    void delete_tree(node *n);
+    void destroy_tree(node *n);
     void inorder(node *n);
     void preorder(node *n);
     void postorder(node *n);
@@ -27,8 +27,13 @@ private:
     int height(node *n);
     void update_height(node *n);
     int balance(node *n);
-    node *rotateLeft(node *n);
-    node *rotateRight(node *n);
+    node *rotate_left(node *n);
+    node *rotate_right(node *n);
+    node *do_remove(node *n, int key, bool &status);
+    node *tree_join(node *n1, node *n2);
+    node *clean_tree(node *n);
+    node *do_kth_smallest(node *n, int k, int &count, bool &found);
+    node *do_kth_largest(node *n, int k, int &count, bool &found);
 public:
     Tree();
     Tree(int key);
