@@ -53,3 +53,6 @@ node. Why complicate things you don't have to?
    it'll speed up compilation and it is a good automation that'll prove useful for larger projects in the future.
  - Deleted the Node.cpp and Node.hpp files since we are no longer using a node class, but instead a struct node
  - Designed the tree class. Added the necessary private members and public methods.
+
+20/05/2023
+ - Fully implemented all public methods.
