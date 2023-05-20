@@ -45,16 +45,16 @@ void Tree::print(std::string order) {
 void Tree::inorder(node *n) {
     if (n != nullptr) {
         inorder(n->left_);
-        inorder(n->right_);
         std::cout << n->key_ << " ";
+        inorder(n->right_);
     }
 }
 
 void Tree::preorder(node *n) {
     if (n != nullptr) {
+        std::cout << n->key_ << " ";
         preorder(n->left_);
         preorder(n->right_);
-        std::cout << n->key_ << " ";
     }
 }
 
@@ -67,10 +67,10 @@ void Tree::postorder(node *n) {
 }
 
 void Tree::levelorder() {
-    std::queue<node *> q = std::queue<node *>();
+    std::queue<node *> q;
     q.push(root_);
 
-    if (q.empty()) {
+    while (!q.empty()) {
         node *n = q.front();
         q.pop();
 
