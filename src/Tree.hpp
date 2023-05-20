@@ -39,9 +39,9 @@ private:
     node *do_kth_largest(node *n, int k, int &count, bool &found);
     int do_lca(node *n, int a, int b);
     int do_floor(node *n, int key);
-    int get_smallest(node *n);
+    int smallest();
     int do_ceiling(node *n, int key);
-    int get_largest(node *n);
+    int largest();
 public:
     Tree();
     Tree(int key);

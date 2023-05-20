@@ -332,3 +332,59 @@ int Tree::do_lca(node *n, int a, int b) {
     }
     return n->key_;
 }
+
+int Tree::floor(int key) {
+    return (key < smallest()) ? UNDEFINED : do_floor(root_, key);
+}
+
+int Tree::do_floor(node *n, int key) {
+    if (n == nullptr) return UNDEFINED;
+    if (n->left_ == nullptr && n->right_ == nullptr) return n->key_;
+
+    int floor;
+    if (key < n->key_) {
+        floor = do_floor(n->left_, key);
+    } else if (key > n->key_) {
+        floor = do_floor(n->right_, key);
+    } else {
+        return n->key_;
+    }
+
+    return (key < floor &&  key > n->key_) ? n->key_ : floor;
+}
+
+int Tree::smallest() {
+    node *curr = root_;
+    while (curr->left_ != nullptr) {
+        curr = curr->left_;
+    }
+    return curr->key_;
+}
+
+int Tree::ceiling(int key) {
+    return (key > largest()) ? UNDEFINED : do_ceiling(root_, key);
+}
+
+int Tree::do_ceiling(node *n, int key) {
+    if (n == nullptr) return UNDEFINED;
+    if (n->left_ == nullptr && n->right_ == nullptr) return n->key_;
+
+    int ceiling;
+    if (key < n->key_) {
+        ceiling = do_ceiling(n->left_, key);
+    } else if (key > n->key_) {
+        ceiling = do_ceiling(n->right_, key);
+    } else {
+        return n->key_;
+    }
+
+    return (key > ceiling && key < n->key_) ? n->key_ : ceiling;
+}
+
+int Tree::largest() {
+    node *curr = root_;
+    while (curr->right_ != nullptr) {
+        curr = curr->right_;
+    }
+    return curr->key_;
+}
