@@ -3,6 +3,8 @@
 
 #include <string>
 
+#define UNDEFINED INT_MIN
+
 class Tree {
 private:
     struct node {
@@ -14,6 +16,7 @@ private:
         node(int key);
     };
     node *root_;
+    int size_;
 
     void destroy_tree(node *n);
     void inorder(node *n);
@@ -34,12 +37,18 @@ private:
     node *clean_tree(node *n);
     node *do_kth_smallest(node *n, int k, int &count, bool &found);
     node *do_kth_largest(node *n, int k, int &count, bool &found);
+    int do_lca(node *n, int a, int b);
+    int do_floor(node *n, int key);
+    int get_smallest(node *n);
+    int do_ceiling(node *n, int key);
+    int get_largest(node *n);
 public:
     Tree();
     Tree(int key);
 
     ~Tree();
 
+    int size();
     void print(std::string order = "preorder");
     bool search(int key);
     bool insert(int key);

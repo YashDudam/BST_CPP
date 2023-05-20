@@ -6,11 +6,9 @@
 
 Tree::node::node(int key) : key_(key), left_(nullptr), right_(nullptr), height_(0) {}
 
-Tree::Tree() : root_(nullptr) {}
+Tree::Tree() : root_(nullptr), size_(0) {}
 
-Tree::Tree(int key) {
-    root_ = new node(key);
-}
+Tree::Tree(int key) : root_(new node(key)), size_(1) {}
 
 Tree::~Tree() {
     destroy_tree(root_);
@@ -22,6 +20,10 @@ void Tree::destroy_tree(node *n) {
         destroy_tree(n->right_);
         delete n;
     }
+}
+
+int Tree::size() {
+    return size_;
 }
 
 void Tree::print(std::string order) {
@@ -121,6 +123,7 @@ bool Tree::insert(int key) {
 
 Tree::node *Tree::do_insert(node *n, int key, bool &status) {
     if (n == nullptr) {
+        size_++;
         status = true;
         return new node(key);
     }
@@ -209,6 +212,7 @@ Tree::node *Tree::do_remove(node *n, int key, bool &status) {
             n = clean_tree(n);
         } else {
             status = true;
+            size_--;
             Tree::node *temp = tree_join(n->left_, n->right_);
             free(n);
             n = temp;
@@ -255,6 +259,10 @@ Tree::node *Tree::clean_tree(node *n) {
 }
 
 int Tree::kth_smallest(int k) {
+    if (k > size_) {
+        std::cerr << "kth_smallest input cannot be larger than the size of the tree.\n";
+        exit(EXIT_FAILURE);
+    }
     int count = 0;
     bool found = false;
     Tree::node *small = do_kth_smallest(root_, k, count, found);
@@ -278,6 +286,10 @@ Tree::node *Tree::do_kth_smallest(node *n, int k, int &count, bool &found) {
 }
 
 int Tree::kth_largest(int k) {
+    if (k > size_) {
+        std::cerr << "kth_largest input cannot be larger than the size of the tree.\n";
+        exit(EXIT_FAILURE);
+    }
     int count = 0;
     bool found = false;
     node *large = do_kth_largest(root_, k, count, found);
@@ -299,4 +311,24 @@ Tree::node *Tree::do_kth_largest(node *n, int k, int &count, bool &found) {
 
     }
     return large;
+}
+
+int Tree::LCA(int a, int b) {
+    if (!(search(a) && search(b))) {
+        std::cerr << "LCA invalid input. Both inputs must be present in the tree.\n";
+        exit(EXIT_FAILURE);
+    }
+
+    return do_lca(root_, a, b);
+}
+
+int Tree::do_lca(node *n, int a, int b) {
+    if (n == nullptr) return UNDEFINED;
+
+    if (n->key_ > a && n->key_) {
+        return do_lca(n->left_, a, b);
+    } else if (n->key_ < a && n->key_ < b) {
+        return do_lca(n->right_, a, b);
+    }
+    return n->key_;
 }
