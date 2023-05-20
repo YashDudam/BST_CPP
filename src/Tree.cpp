@@ -1,4 +1,6 @@
+#include <iostream>
 #include <cstdlib>
+#include <queue>
 
 #include "Tree.hpp"
 
@@ -9,6 +11,91 @@ Tree::Tree() : root_(nullptr) {}
 Tree::Tree(int key) {
     root_ = new node(key);
 }
+
+Tree::~Tree() {
+    delete_tree(root_);
+}
+
+void Tree::delete_tree(node *n) {
+    if (n != nullptr) {
+        delete_tree(n->left_);
+        delete_tree(n->right_);
+        delete n;
+    }
+}
+
+void Tree::print(std::string order) {
+    if (order == "preorder" || order == "pr") {
+        preorder(root_);
+    } else if (order == "inorder" || order == "i") {
+        inorder(root_);
+    } else if (order == "postorder" || order == "po") {
+        postorder(root_);
+    } else if (order == "levelorder" || order == "l") {
+        levelorder();
+    } else if (order == "visual" || order == "v") {
+        visual(root_, 0);
+    } else {
+        std::cerr << "Invalid print option.\n";
+        exit(EXIT_FAILURE);
+    }
+    std::cout << std::endl;
+}
+
+void Tree::inorder(node *n) {
+    if (n != nullptr) {
+        inorder(n->left_);
+        inorder(n->right_);
+        std::cout << n->key_ << " ";
+    }
+}
+
+void Tree::preorder(node *n) {
+    if (n != nullptr) {
+        preorder(n->left_);
+        preorder(n->right_);
+        std::cout << n->key_ << " ";
+    }
+}
+
+void Tree::postorder(node *n) {
+    if (n != nullptr) {
+        postorder(n->left_);
+        postorder(n->right_);
+        std::cout << n->key_ << " ";
+    }
+}
+
+void Tree::levelorder() {
+    std::queue<node *> q = std::queue<node *>();
+    q.push(root_);
+
+    if (q.empty()) {
+        node *n = q.front();
+        q.pop();
+
+        std::cout << n->key_ << " ";
+
+        if (n->left_ != nullptr) {
+            q.push(n->left_);
+        }
+        if (n->right_ != nullptr) {
+            q.push(n->right_);
+        }
+    }
+}
+
+void Tree::visual(node *n, int depth) {
+    if (n != nullptr) {
+        visual(n->right_, depth + 1);
+        for (int i = 0; i < depth; i++) {
+            std::cout << "\t";
+        }
+        std::cout << n->key_ << std::endl;
+        visual(n->left_, depth + 1);
+    }
+}
+
 
 bool Tree::search(int key) {
     return do_search(root_, key);
@@ -39,26 +126,67 @@ Tree::node *Tree::do_insert(node *n, int key, bool &status) {
     }
 
     if (key < n->key_) {
-        return do_insert(n->left_, key, status);
+        n->left_ = do_insert(n->left_, key, status);
     } else if (key > n->key_) {
-        return do_insert(n->right_, key, status);
+        n->right_ = do_insert(n->right_, key, status);
     } else {
-        status = false;
         return n;
     }
 
     update_height(n);
     int bal = balance(n);
-    
+    if (bal > 1) {
+        if (key > n->left_->key_) {
+            n->left_ = rotateLeft(n->left_);
+        }
+        n = rotateRight(n->left_);
+    } else if (bal < -1) {
+        if (key > n->right_->key_) {
+            n->right_ = rotateRight(n->right_);
+        }
+        n = rotateLeft(n);
+    }
+    return n;
 }
 
 int Tree::max(int a, int b) {
     return (a > b) ? a : b;
 }
 
-int Tree::balance(node *n) {
-    int left = (n->left_ == nullptr) ? -1 : n->left_->height_;
-    int right = (n->right_ == nullptr) ? -1 : n->right_->height_;
+int Tree::height(node *n) {
+    return (n == nullptr) ? -1 : n->height_;
+}
 
-    return left - right;
+void Tree::update_height(node *n) {
+    n->height_ = max(height(n->left_), height(n->right_)) + 1;
+}
+
+int Tree::balance(node *n) {
+    return height(n->left_) - height(n->right_);
+}
+
+Tree::node *Tree::rotateLeft(node *n) {
+    if (n == nullptr || n->right_ == nullptr) return n;
+
+    node *new_root = n->right_;
+    n->right_ = new_root->left_;
+    new_root->left_ = n;
+
+    update_height(n);
+    update_height(new_root);
+
+    return new_root;
+}
+
+Tree::node *Tree::rotateRight(node *n) {
+    if (n == nullptr || n->left_ == nullptr) return n;
+
+    node *new_root = n->left_;
+    n->left_ = new_root->right_;
+    new_root->right_ = n;
+
+    update_height(n);
+    update_height(new_root);
+
+    return new_root;
 }
