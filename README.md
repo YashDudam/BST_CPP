@@ -56,3 +56,10 @@ node. Why complicate things you don't have to?
 
 20/05/2023
  - Fully implemented all public methods.
+ - We're done!!!...jokes we can make a lot of improvements
+
+## Improvements to be made
+ - Write more C++ style code (use "const", and "auto")
+ - Learn templates to make our binary search tree take multiple types as an input. Should also use a compare function instead.
+ - Learn CMake to build program. Not necessary for a small project but is needed for larger projects
+ - Use catch testing framework
